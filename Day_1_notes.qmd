@@ -4,6 +4,64 @@ format: html
 ---
 
 
-```{r}
 
+```{r}
+## Introdution
+##install.packages("tidyverse")
+library(tidyverse)
+tidyverse_packages()
+```
+
+```{r}
+judgments <- readr::read_tsv("data/judgments.tsv", show_col_types = FALSE)
+judgments
+
+spec(judgments)
+
+jud2 <- readr::read_delim("data/judgments.tsv",
+             col_types = 
+               cols(start_date = col_date(format = "%d/%m/%Y"),
+                    end_date = col_date(format =  "%d/%m/%Y"),
+                    finished = "f",
+                    condition = "f",
+                    gender = "f",
+                    logbook = "c", 
+                    exclude = "f",
+                    moral_judgment = "d",
+                    moral_judgment_disgust = "d",
+                    moral_judgment_non_disgust = "d",
+                    .default = col_integer()))
+jud2
+```
+
+```{r}
+#seq_summary <- readr::read_tsv("data/seq_summary.tsv", #show_col_types = FALSE)
+#seq_summary
+
+seq_summary <- readr::read_tsv("data/seq_summary.tsv",
+skip = 5,
+col_types = cols(
+    sample_id = "c",
+    read_count = "i",
+    gc_content = "d",
+    instrument = "_"
+)
+)
+seq
+
+seq <- readr::read_tsv(
+  "data/seq_summary.tsv",
+  skip = 5,
+  col_types = cols(
+    sample_id   = "c",
+    instrument  = "_",
+    read_count  = "i",
+    gc_content  = "d"
+  )
+)
+seq
+```
+
+```{r}
+## Reading multiple files at once
 ```
