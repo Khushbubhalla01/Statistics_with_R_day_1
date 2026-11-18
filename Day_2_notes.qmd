@@ -1,0 +1,12 @@
+---
+title: "Untitled"
+format: html
+---
+## Day 2 notes
+
+
+```{r}
+##install.packages("tidyverse")
+library(tidyverse)
+tidyverse_packages()
+```
