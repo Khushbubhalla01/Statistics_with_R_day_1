@@ -3,6 +3,7 @@ title: "Untitled"
 format: html
 ---
 ## Day 2 notes
+## Intro to Stats _ completed day 2 exercises
 
 
 ```{r}
@@ -10,3 +11,72 @@ format: html
 library(tidyverse)
 tidyverse_packages()
 ```
+## Indexing and data transformations
+
+```{r}
+set.seed(123)
+age <- sample(1:90, size = 10, replace = TRUE)
+age[age == 14]
+age[age > 60 | age <18]
+age[age == 18 | age >18 & age <65 | age == 65]
+age[age >= 18 & age <= 65]
+
+##Altermative
+idx <- age > 60| age <18
+age[idx]
+
+##To check the presence of one vector in another
+A <- seq(1, 12, 2)  # odd numbers
+B <- seq(2, 12, 2)  # even numbers
+
+# test to see if each of the elements of A is in B  
+A %in% B
+
+## Another example
+epi <- str_split_1("epidemiology", "")
+epi
+epi <- str_split_1("epidemiology", "")
+epi
+epi[are_vowels]
+```
+
+```{r}
+## Useful fucntions on vectors
+##sort and order
+v <- runif(5, min=1, max=10)
+sort(v)
+order(v)
+```
+
+```{r}
+w <- c(6.1, 8.9, NA, 5.0, 8.8, 1.9, 6.6, 7.2, 9.4, NA, 4.9)
+
+mean(w)
+mean(w, na.rm = TRUE)
+```
+
+```{r}
+##Day2 exercises
+set.seed(123)
+score <- runif(10, min=1, max=20)
+score
+length(score)
+any(score < 6)
+idx <- score < 6
+score[idx]
+score[score >7 & score <9]
+cum_score <- sum(score)
+length(cum_score)
+test <- c(9, NA, 5, 2, NA, 4)
+mean(test, na.rm = TRUE)
+
+##Answers: [1]  6.463973 15.977798  8.770562 17.777331 18.868878  1.865573
+ #[7] 11.034004 17.955962 11.477265  9.675680
+#[1] 10
+#[1] TRUE
+#[1] 1.865573
+#[1] 8.770562
+#[1] 1
+#[1] 5
+```
+## From Vectors to matrices
