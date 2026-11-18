@@ -80,3 +80,81 @@ mean(test, na.rm = TRUE)
 #[1] 5
 ```
 ## From Vectors to matrices
+
+```{r}
+# `matrix()` defines a matrix with 3 rows and 4 columns
+A <- matrix(1:12, nrow = 3, ncol = 4) 
+A
+
+# same result is obtained by providing only one dimension
+matrix(sample(0:5, 12, replace = TRUE), nrow = 3)
+
+# same result is obtained by providing only one dimension
+matrix(1:12, nrow = 3, byrow = TRUE)
+```
+
+```{r}
+## Exercise
+m<- matrix(1:6, nrow = 2)
+m
+matrix(1:6, nrow = 2, byrow = TRUE)
+matrix(0, nrow=3, ncol=3)
+
+zero <- rep(0,9)
+m <- matrix(zero, ncol=3)
+```
+
+```{r}
+##Accessing elements of a matrix
+A <- matrix(1:12, nrow = 3, ncol = 4) 
+A[c(1, 2), c(2, 3)]
+##leaving column field blank will select entire columns
+A[c(1, 2), ]
+#Select all the rows except first
+A[-1, ]
+
+##Logical vectors can be used to index a matrix rows and columns where the value is TRUE is returned...
+
+##Logical vectors can be used to index a matrix rows and columns where the value is TRUE is returned
+
+A <- matrix(c(4, 9, 10, 1, 5, 7), nrow = 3)
+A
+dim(A)
+A(2,2) 
+A <- cbind(0,0,0)
+A [1,1] <- 0
+A
+t(A)
+```
+
+```{r}
+#Exercises
+ weight <- c(55, 72, 48, 90, 66, 103, 59)
+ which(weight > 80)
+ which(weight >=50 & weight <=70)
+ length(which(weight <60))
+```
+
+```{r}
+temperature_class <- factor(rep(c("cold", "warm", "mild"), each=3))
+temperature_class
+as.integer(temperature_class)
+set.seed(3)
+temperatures <- rnorm(12,10,10)
+temperatures
+
+w_class <- c(-15, 0, 15, 30)
+cut(temperatures, breaks = w_class,
+    labels = levels(temperature_class))
+```
+
+```{r}
+summary(swiss)
+mean(swiss$Agriculture)
+median(swiss$Agriculture)
+sd(swiss$Agriculture)
+quantile(swiss$Agriculture,probs = c(01.,0.9))
+
+summary(swiss$Catholic)
+glimpse(swiss$Catholic)
+```
