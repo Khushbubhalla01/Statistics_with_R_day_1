@@ -3,3 +3,49 @@ title: "Untitled"
 format: html
 ---
 
+## Day 3 notes
+## Vectorization and lists
+
+```{r}
+##install.packages("tidyverse")
+library(tidyverse)
+tidyverse_packages()
+```
+
+```{r}
+sum(x[[1]]) # will succeed
+
+sum(x[1]) # will error
+```
+
+```{r}
+x <- list(a = 1:3, b = "hello", c = list(d = TRUE))
+sum(x[[1]])
+x[[1,2]]
+```
+
+```{r}
+#Just an example
+cms <- sample_n(tidyr::cms_patient_care, size = 4)
+cms
+```
+
+```{r}
+## Just an example
+cms |> 
+  mutate(metadata = list(
+    women,
+    vec = c("ab", "c"),
+    lm(height ~ weight, data = women),
+    NULL
+  ), .after = ccn)
+```
+
+```{r}
+counts <- counts <- c(100, 307, 323, 5000, 0, 10)
+log10(counts)
+make_loggable <- function(raw_counts) {
+    raw_counts +1
+}
+ counts |>  make_loggable() |>  log10()
+```
