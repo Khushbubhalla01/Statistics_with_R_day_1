@@ -9,6 +9,7 @@ format: html
 ```{r}
 ##install.packages("tidyverse")
 library(tidyverse)
+library(dplyr)
 tidyverse_packages()
 ```
 
@@ -48,4 +49,84 @@ make_loggable <- function(raw_counts) {
     raw_counts +1
 }
  counts |>  make_loggable() |>  log10()
+```
+
+```{r}
+## Complex functions
+##map,purrr::map()
+##Example
+samples <- list(a = c(100, 0, 10),
+                b = c(5000, 307, 42, 18),
+                c = c(0, 250, 75, 3, 12))
+samples
+map(samples, make_loggable)
+map(samples, \(x) x |> make_loggable() |> log10())
+```
+
+```{r}
+library(purrr)
+map_dbl(swiss, mean)
+lapply(swiss, mean)
+```
+
+```{r}
+ggplot(penguins,
+       aes(x = bill_len, y = bill_dep, colour = species)) +
+  geom_point() +
+  geom_smooth(method = "lm",
+              formula = 'y ~ x',
+              se = FALSE) +
+  facet_wrap(vars(island)) +
+  labs(title = "Species by Islands")
+
+lm(bill_dep ~ bill_len, data = penguins)
+summary(lm(bill_dep ~ bill_len, 
+           data = penguins))
+
+split_peng <- group_split(penguins, 
+                          island, 
+                          species)
+map(split_peng, dim)
+map_dbl(split_peng, nrow)
+
+map(split_peng, \(x) {
+  lm(bill_dep ~ bill_len, 
+     data = x)
+})
+lm_all <- summary(lm(bill_dep ~ bill_len, ## R2
+                     data = penguins))
+str(lm_all, max.level = 1, give.attr = FALSE)
+plit_peng |>
+  map(\(x) lm(bill_dep ~ bill_len,
+              data = x)) |> 
+  map(summary) |>
+  map(\(x) pluck(x, "R.squared"))
+```
+
+```{r}
+##list as a tibble
+tibble(numbers = 1:8,
+       my_list = list(a = c("a", "b"), b = 2.56, 
+                      c = c("a", "b", "c"), d = rep(TRUE, 4),
+                      d = 2:3, e = 4:6, f = FALSE, g = c(1, 4, 5, 6)))
+ penguins |>
+  nest(.by = c(island, species))
+penguins |>
+  nest(.by = c(island, species)) |>
+  mutate(model = map(data, 
+                     \(x) lm(bill_dep ~ bill_len,
+                          data = x)),
+         summary = map(model, summary),
+         r_squared = map_dbl(summary, "r.squared"))                    
+```
+```{r}
+
+ChickWeight |> 
+  group_split(Diet) |> 
+  lapply(function(x) {
+    model <- lm(weight ~ Time, data = x)
+    summary(model)$coefficients["Time", "Estimate"]
+  }) |> 
+  unlist() |> 
+  which.max()
 ```
